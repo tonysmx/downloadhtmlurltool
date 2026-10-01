@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       target_url:
-        description: 'https://bog.n8-math.dev/games/boir/index.html'
+        description: 'https://bog.n8-math.dev/games/boir'
         required: true
         type: string
 
