@@ -1,0 +1,33 @@
+name: Fetch HTML from URL
+
+on:
+  workflow_dispatch:
+    inputs:
+      target_url:
+        description: 'https://bog.n8-math.dev/games/boir/index.html'
+        required: true
+        type: string
+
+jobs:
+  fetch-webpage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Fetch HTML
+        run: |
+          echo "Fetching HTML from: ${{ github.event.inputs.target_url }}"
+          
+          # Fetch the HTML and save it to a file
+          curl -L "${{ github.event.inputs.target_url }}" -o downloaded_page.html
+          
+          # Optional: Print the first 20 lines to the action log so you can see it
+          head -n 20 downloaded_page.html
+
+      # Optional: Save the HTML as a downloadable build artifact
+      - name: Upload HTML Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fetched-html-file
+          path: downloaded_page.html
